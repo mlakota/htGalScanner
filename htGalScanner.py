@@ -1,4 +1,5 @@
 import sys
+import os
 from os import path as osp
 
 configFile = 'config.ini'
@@ -31,10 +32,11 @@ class HTScan(object):
 	def scanFolders(self):
 		for folder in self.scanned:
 			if osp.exists(folder) and osp.isdir(folder):
-				pass
+				self.scanElement(folder)
 
-	def scanElement(self):
-		pass
+	def scanElement(self, folderPath):
+		if not self.recursive:
+			print os.listdir(folderPath)
 
 
 def main(*args):
