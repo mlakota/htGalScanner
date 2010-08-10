@@ -9,6 +9,9 @@ class HTScan(object):
 	def debug(self):
 		print self.args
 
+	def getConfig(self):
+		pass
+
 def main(*args):
 	HT = HTScan(args)
 	HT.debug()
