@@ -14,4 +14,4 @@ def main(*args):
 	HT.debug()
 
 if __name__ == '__main__':
-	main('arg1','arg2')
+	main(sys.argv[0],'arg1','arg2')
