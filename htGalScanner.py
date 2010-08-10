@@ -25,6 +25,10 @@ class HTScan(object):
 				for item in option[1].split(','):
 					self.scanned.append(item.strip())
 
+	def scanFolders(self):
+		pass
+
+
 def main(*args):
 	HT = HTScan(args)
 	HT.getConfig()
