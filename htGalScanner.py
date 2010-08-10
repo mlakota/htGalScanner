@@ -28,12 +28,12 @@ class HTScan(object):
 		for i in lines:
 			option = i.split('=')
 			optName = option[0].strip()
+			optVal = option[1].strip()
 			if optName == pathOption:
-				for item in option[1].split(','):
-					self.scanned = item.strip()
+				self.scanned = optVal
 			elif optName == recurseOption:
-				self.recursive = True if option[1].strip() \
-					== 'yes' else False
+				self.recursive = True if optVal	== 'yes' \
+					else False
 				print self.recursive
 
 	def scanFolders(self):
