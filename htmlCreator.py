@@ -1,8 +1,12 @@
 
 
 class HTMLCreator(object):
-	pass
 
+	destFile = ""
+	destDiv = ""
+
+	def __init__(self):
+		pass
 
 
 
