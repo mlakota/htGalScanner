@@ -21,6 +21,7 @@ class IMG(object):
 				self.destPath, i)
 	
 	def __processElement(self, source, dest, elem):
+		assert(self.__checkNecessaryFields())
 		if isinstance(elem,dict):
 			for i in elem.values()[0]:
 				self.__processElement(source+os.sep+
@@ -36,8 +37,16 @@ class IMG(object):
 			im.save(dest+os.sep+self.thumbPrefix+elem)
 
 	def __checkNecessaryFields(self):
-		pass
-
+		try:
+			assert(self.srcPath)
+			assert(self.destPath)
+			assert(self.thumbPrefix)
+			assert(self.thumbW and self.thumbH)
+			assert(self.thumbW < self.imgW and \
+				self.thumbH < self.imgH)
+			return True
+		except AssertionError:
+			return False
 def main():
 	img = IMG()
 	img.srcPath = 'E:\Fotki'
