@@ -15,7 +15,9 @@ class IMG(object):
 	def __init__(self):
 		pass
 
-	def process(self):
+	def process(self,tree=[]):
+		if tree:
+			self.imgTree = tree
 		for i in self.imgTree:
 			self.__processElement(self.srcPath,
 				self.destPath, i)
@@ -38,26 +40,51 @@ class IMG(object):
 
 	def __checkNecessaryFields(self):
 		try:
-			assert(self.srcPath)
-			assert(self.destPath)
-			assert(self.thumbPrefix)
-			assert(self.thumbW and self.thumbH)
-			assert(self.thumbW < self.imgW and \
-				self.thumbH < self.imgH)
+			assert self.srcPath,'src'
+			assert self.destPath,'dest'
+			assert self.thumbPrefix,'pref'
+			assert self.thumbW and self.thumbH,'thumb'
+			assert self.thumbW < self.imgW and \
+				self.thumbH < self.imgH,'size'
 			return True
-		except AssertionError:
+		except AssertionError,e:
+			print "EEEE:",str(e)
 			return False
+
+	def set(self,**args):
+		for item in args.keys():
+			if item == 'source':
+				self.srcPath = args[item]
+			elif item == 'dest':
+				self.destPath = args[item]
+			elif item == 'size':
+				self.imgW,self.imgH = args[item]
+			elif item == 'thumbSize':
+				self.thumbW,self.thumbH = args[item]
+			elif item == 'prefix':
+				self.thumbPrefix = args[item]
+
+
 def main():
 	img = IMG()
-	img.srcPath = 'E:\Fotki'
-	img.destPath = 'E:\Galeria\zdjecia'
-	img.imgW = 600
-	img.imgH = 600
-	img.thumbW = img.thumbH = 100
-	img.thumbPrefix="th_"
-	img.imgTree = ['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
-	['Koala.jpg', 'Lighthouse.jpg']}]
-	img.process()
+	img.set(
+		source="E:\Fotki",
+		dest="E:\Galeria\zdjecia",
+		size=(700,700),
+		thumbSize=(100,100),
+		prefix="t_"
+		)
+#	img.srcPath = 'E:\Fotki'
+#	img.destPath = 'E:\Galeria\zdjecia'
+#	img.imgW = 600
+#	img.imgH = 600
+#	img.thumbW = img.thumbH = 100
+#	img.thumbPrefix="th_"
+#	img.imgTree = ['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
+#	['Koala.jpg', 'Lighthouse.jpg']}]
+	img.process(['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
+		['Koala.jpg', 'Lighthouse.jpg']}])
+
 
 if __name__ == '__main__':
 	main()
