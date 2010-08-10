@@ -1,4 +1,5 @@
 import sys
+import os
 
 configFile = 'config.ini'
 pathOption = 'path'
