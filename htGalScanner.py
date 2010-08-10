@@ -1,6 +1,7 @@
 import sys
 
 configFile = 'config.ini'
+pathOption = 'path'
 
 class HTScan(object):
 
@@ -13,8 +14,10 @@ class HTScan(object):
 	def getConfig(self):
 		lines = open(configFile).readlines()
 		for i in lines:
-			option = i.split('=')[0].strip()
-			print option
+			option = i.split('=')
+			if option[0].strip() == pathOption:
+				for item in option[1].split(','):
+					print item.strip()
 
 def main(*args):
 	HT = HTScan(args)
