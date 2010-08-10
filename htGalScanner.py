@@ -11,8 +11,10 @@ class HTScan(object):
 		print self.args
 
 	def getConfig(self):
-		file = open(configFile)
-		print file.readlines()
+		lines = open(configFile).readlines()
+		for i in lines:
+			option = i.split('=')[0].strip()
+			print option
 
 def main(*args):
 	HT = HTScan(args)
