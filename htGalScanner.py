@@ -11,7 +11,8 @@ class HTScan(object):
 		self.args = args
 
 	def debug(self):
-		print self.args
+		print 'ARGS:',self.args
+		print 'SCANNED:',self.scanned
 
 	def getConfig(self):
 		lines = open(configFile).readlines()
@@ -23,8 +24,8 @@ class HTScan(object):
 
 def main(*args):
 	HT = HTScan(args)
-	HT.debug()
 	HT.getConfig()
+	HT.debug()
 
 if __name__ == '__main__':
 	main(sys.argv[0],'arg1','arg2')
