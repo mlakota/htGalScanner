@@ -8,6 +8,7 @@ class IMG(object):
 	imgW, imgH = 0,0
 	srcPath = ""
 	destPath = ""
+	imgTree = []
 
 
 	def __init__(self):
@@ -18,7 +19,13 @@ class IMG(object):
 
 
 def main():
-	pass
+	img = IMG()
+	img.srcPath = 'E:\Fotki'
+	img.destPath = 'E:\Galeria'
+	img.imgW = img.imgH = 600
+	img.thumbW = img.thumbH = 100
+	img.imgTree = ['Chrysantemum.jpg', 'Desert.jpg']
+	img.process()
 
 if __name__ == '__main__':
 	main()
