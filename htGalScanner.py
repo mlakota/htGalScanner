@@ -9,7 +9,7 @@ acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
 
-	scanned = []
+	scanned = ''
 	tree = {}
 	recursive = True
 
@@ -30,16 +30,15 @@ class HTScan(object):
 			optName = option[0].strip()
 			if optName == pathOption:
 				for item in option[1].split(','):
-					self.scanned.append(item.strip())
+					self.scanned = item.strip()
 			elif optName == recurseOption:
 				self.recursive = True if option[1].strip() \
 					== 'yes' else False
 				print self.recursive
 
 	def scanFolders(self):
-		for folder in self.scanned:
-			if osp.exists(folder) and osp.isdir(folder):
-				print self.scanElement(folder)
+		if osp.exists(self.scanned) and osp.isdir(self.scanned):
+			print self.scanElement(self.scanned)
 
 	def scanElement(self, folderPath):
 		fileList = []
