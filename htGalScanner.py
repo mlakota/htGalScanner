@@ -8,6 +8,7 @@ class HTScan(object):
 
 	scanned = []
 	tree = {}
+	recursive = False
 
 	def __init__(self,args):
 		self.args = args
@@ -31,6 +32,10 @@ class HTScan(object):
 		for folder in self.scanned:
 			if osp.exists(folder) and osp.isdir(folder):
 				pass
+
+	def scanElement(self):
+		pass
+
 
 def main(*args):
 	HT = HTScan(args)
