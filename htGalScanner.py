@@ -12,7 +12,10 @@ class HTScan(object):
 
 	def debug(self):
 		print 'ARGS:',self.args
-		print 'SCANNED:',self.scanned
+		print 'SCANNED: [',
+		for item in self.scanned:
+			print "'" + item + "',",
+		print ']'
 
 	def getConfig(self):
 		lines = open(configFile).readlines()
