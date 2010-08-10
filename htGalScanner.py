@@ -10,7 +10,8 @@ class HTScan(object):
 		print self.args
 
 	def getConfig(self):
-		pass
+		file = open('config.ini')
+		print file.readlines()
 
 def main(*args):
 	HT = HTScan(args)
