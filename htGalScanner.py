@@ -1,7 +1,10 @@
 
 
 
+class HTScan(object):
 
+	def __init__(self):
+		pass
 
 def main(*args):
 	print args
