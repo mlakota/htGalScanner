@@ -2,6 +2,7 @@
 
 class HTMLCreator(object):
 
+	destPath = ""
 	destFile = ""
 	destDiv = ""
 
@@ -11,7 +12,11 @@ class HTMLCreator(object):
 
 
 def main():
-	pass
+	html = HTMLCreator()
+	html.destPath = 'E:\Galeria'
+	html.destFile = 'galeria.html'
+	html.destDiv = 'gallery'
+	print html.destPath, html.destFile, html.destDiv
 
 if __name__ == '__main__':
 	main()
