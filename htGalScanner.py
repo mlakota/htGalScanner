@@ -37,11 +37,15 @@ class HTScan(object):
 
 	def scanElement(self, folderPath):
 		fileList = []
-		if not self.recursive:
-			 for i in os.listdir(folderPath):
-			 	if osp.isfile(folderPath+os.sep+i) and \
-					i.split('.')[1] in acceptedExts:
-					fileList.append(i)
+		for i in os.listdir(folderPath):
+			tempPath = folderPath+os.sep+i
+			if osp.isfile(tempPath) and \
+				i.split('.')[1] in acceptedExts:
+				fileList.append(i)
+			elif self.recursive:
+				if osp.isdir(tempPath):
+					fileList.append({i : 
+						self.scanElement(tempPath)})
 		return fileList
 
 
