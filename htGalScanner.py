@@ -16,6 +16,7 @@ class HTScan(object):
 def main(*args):
 	HT = HTScan(args)
 	HT.debug()
+	HT.getConfig()
 
 if __name__ == '__main__':
 	main(sys.argv[0],'arg1','arg2')
