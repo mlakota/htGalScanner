@@ -3,8 +3,8 @@
 
 
 
-def main():
-	pass
+def main(*args):
+	print args
 
 if __name__ == '__main__':
-	main()
+	main('arg1','arg2')
