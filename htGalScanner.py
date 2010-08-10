@@ -27,12 +27,19 @@ class HTScan(object):
 					self.scanned.append(item.strip())
 
 	def scanFolders(self):
-		pass
+		for folder in self.scanned:
+			print folder,
+			if os.path.exists(folder) and \
+				os.path.isdir(folder):
+				print '+'
+			else:
+				print '-'
 
 
 def main(*args):
 	HT = HTScan(args)
 	HT.getConfig()
+	HT.scanFolders()
 	HT.debug()
 
 if __name__ == '__main__':
