@@ -35,6 +35,9 @@ class IMG(object):
 			im.thumbnail((self.thumbW,self.thumbH))
 			im.save(dest+os.sep+self.thumbPrefix+elem)
 
+	def __checkNecessaryFields(self):
+		pass
+
 def main():
 	img = IMG()
 	img.srcPath = 'E:\Fotki'
