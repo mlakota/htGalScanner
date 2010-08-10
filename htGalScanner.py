@@ -10,7 +10,7 @@ class HTScan(object):
 
 	scanned = []
 	tree = {}
-	recursive = False
+	recursive = True
 
 	def __init__(self,args):
 		self.args = args
@@ -43,8 +43,9 @@ class HTScan(object):
 				i.split('.')[1] in acceptedExts:
 				fileList.append(i)
 			elif self.recursive:
-				if osp.isdir(tempPath):
-					fileList.append({i : 
+				if osp.isdir(tempPath) and \
+					os.listdir(tempPath):
+					fileList.append( { i : 
 						self.scanElement(tempPath)})
 		return fileList
 
