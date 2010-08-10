@@ -33,7 +33,7 @@ class HTScan(object):
 	def scanFolders(self):
 		for folder in self.scanned:
 			if osp.exists(folder) and osp.isdir(folder):
-				self.scanElement(folder)
+				print self.scanElement(folder)
 
 	def scanElement(self, folderPath):
 		fileList = []
@@ -41,7 +41,8 @@ class HTScan(object):
 			 for i in os.listdir(folderPath):
 			 	if osp.isfile(folderPath+os.sep+i) and \
 					i.split('.')[1] in acceptedExts:
-					print i
+					fileList.append(i)
+		return fileList
 
 
 def main(*args):
