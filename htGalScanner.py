@@ -4,6 +4,7 @@ from os import path as osp
 
 configFile = 'config.ini'
 pathOption = 'path'
+recurseOption = 'recursive'
 acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
@@ -26,9 +27,14 @@ class HTScan(object):
 		lines = open(configFile).readlines()
 		for i in lines:
 			option = i.split('=')
-			if option[0].strip() == pathOption:
+			optName = option[0].strip()
+			if optName == pathOption:
 				for item in option[1].split(','):
 					self.scanned.append(item.strip())
+			elif optName == recurseOption:
+				self.recursive = True if option[1].strip() \
+					== 'yes' else False
+				print self.recursive
 
 	def scanFolders(self):
 		for folder in self.scanned:
@@ -45,7 +51,7 @@ class HTScan(object):
 			elif self.recursive:
 				if osp.isdir(tempPath) and \
 					os.listdir(tempPath):
-					fileList.append( { i : 
+					fileList.append( { i :
 						self.scanElement(tempPath)})
 		return fileList
 
