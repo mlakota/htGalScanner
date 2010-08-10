@@ -7,6 +7,7 @@ pathOption = 'path'
 class HTScan(object):
 
 	scanned = []
+	tree = {}
 
 	def __init__(self,args):
 		self.args = args
