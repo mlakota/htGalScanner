@@ -1,5 +1,6 @@
 import sys
 
+configFile = 'config.ini'
 
 class HTScan(object):
 
@@ -10,7 +11,7 @@ class HTScan(object):
 		print self.args
 
 	def getConfig(self):
-		file = open('config.ini')
+		file = open(configFile)
 		print file.readlines()
 
 def main(*args):
