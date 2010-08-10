@@ -4,6 +4,7 @@ from os import path as osp
 
 configFile = 'config.ini'
 pathOption = 'path'
+acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
 
@@ -35,8 +36,12 @@ class HTScan(object):
 				self.scanElement(folder)
 
 	def scanElement(self, folderPath):
+		fileList = []
 		if not self.recursive:
-			print os.listdir(folderPath)
+			 for i in os.listdir(folderPath):
+			 	if osp.isfile(folderPath+os.sep+i) and \
+					i.split('.')[1] in acceptedExts:
+					print i
 
 
 def main(*args):
