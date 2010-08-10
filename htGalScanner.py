@@ -43,7 +43,7 @@ def main(*args):
 	HT = HTScan(args)
 	HT.getConfig()
 	HT.scanFolders()
-	HT.debug()
+#	HT.debug()
 
 if __name__ == '__main__':
 	main(sys.argv[0],'arg1','arg2')
