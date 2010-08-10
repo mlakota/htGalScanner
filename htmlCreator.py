@@ -10,6 +10,8 @@ class HTMLCreator(object):
 		pass
 
 
+	def findDiv(self):
+		pass
 
 def main():
 	html = HTMLCreator()
