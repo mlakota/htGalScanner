@@ -3,8 +3,8 @@
 
 class HTScan(object):
 
-	def __init__(self):
-		pass
+	def __init__(self,args):
+		self.args = args
 
 def main(*args):
 	print args
