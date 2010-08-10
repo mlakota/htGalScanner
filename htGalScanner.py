@@ -1,4 +1,4 @@
-
+import sys
 
 
 class HTScan(object):
