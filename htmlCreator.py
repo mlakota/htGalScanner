@@ -1,10 +1,13 @@
-
+import os
+from os import path as osp
 
 class HTMLCreator(object):
 
 	destPath = ""
 	destFile = ""
 	destDiv = ""
+	fileTree = {}
+
 
 	def __init__(self):
 		pass
