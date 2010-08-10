@@ -5,6 +5,8 @@ pathOption = 'path'
 
 class HTScan(object):
 
+	scanned = []
+
 	def __init__(self,args):
 		self.args = args
 
@@ -17,7 +19,7 @@ class HTScan(object):
 			option = i.split('=')
 			if option[0].strip() == pathOption:
 				for item in option[1].split(','):
-					print item.strip()
+					self.scanned.append(item.strip())
 
 def main(*args):
 	HT = HTScan(args)
