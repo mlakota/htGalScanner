@@ -16,7 +16,11 @@ class IMG(object):
 
 	def process(self):
 		pass
-
+	
+	def __processElement(self, source, dest):
+		if isinstance(source,'dict'):
+			for i in source.values()[0]:
+				print i
 
 def main():
 	img = IMG()
