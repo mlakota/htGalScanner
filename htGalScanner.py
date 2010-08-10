@@ -1,5 +1,5 @@
 import sys
-import os
+from os import path as osp
 
 configFile = 'config.ini'
 pathOption = 'path'
@@ -28,13 +28,8 @@ class HTScan(object):
 
 	def scanFolders(self):
 		for folder in self.scanned:
-			print folder,
-			if os.path.exists(folder) and \
-				os.path.isdir(folder):
-				print '+'
-			else:
-				print '-'
-
+			if osp.exists(folder) and osp.isdir(folder):
+				pass
 
 def main(*args):
 	HT = HTScan(args)
