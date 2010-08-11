@@ -8,7 +8,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	openPosition = ()
 	closePosition = ()
 	lines = []
-	text="Hello, Python!"
+	text=""
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
@@ -34,6 +34,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.singleLine = True
 		else:
 			self.singleLine = False
+
+	def __createText(self):
+		pass
 
 	def __insertText(self):
 		newLines = []
