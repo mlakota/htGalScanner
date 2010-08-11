@@ -1,5 +1,6 @@
 import os
 from os import path as osp
+import HTMLParser
 
 class HTMLCreator(object):
 
