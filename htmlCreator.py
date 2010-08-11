@@ -25,7 +25,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.insideDiv = False
 
 	def __findDiv(self):
-		self.lines = open(self.file).readlines()
+		self.lines = open(self.templatePath).readlines()
 		for eachLine in self.lines:
 			self.feed(eachLine)
 			if self.closePosition:
@@ -59,29 +59,33 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def set(self,**args):
 		for item in args.keys():
-			if item == 'source':
-				self.srcPath = args[item]
-			elif item == 'dest':
-				self.destPath = args[item]
-			elif item == 'size':
-				self.imgW,self.imgH = args[item]
+			if item == 'imgFolder':
+				self.imgFolder = args[item]
+			elif item == 'templatePath':
+				self.templatePath = args[item]
+			elif item == 'destDir':
+				self.destDir = args[item]
+			elif item == 'destFile':
+				self.destFile = args[item]
 			elif item == 'thumbSize':
 				self.thumbW,self.thumbH = args[item]
 			elif item == 'prefix':
 				self.thumbPrefix = args[item]
-			elif item == 'htmlFile':
-				self.file = args[item]
 			elif item == 'divName':
 				self.divName = args[item]
 
 def main():
 	html = HTMLCreator()
 	html.set(
-		dest = 'E:\Galeria\zdjecia',
-		divName = 'galeria',
-		htmlFile = 'E:\Galeria\galeria.html'
+		imgFolder = r'E:\htGallery\n destination',
+		templatePath = r'E:\htGallery\template.html',
+		destDir = 'E:\htGallery',
+		destFile = 'galeria.html',
+		thumbSize = (100,100),
+		prefix = 'th_',
+		divName = 'galeria'
 		)
-	html.process()
+	html.process(['Chrysanthemum.jpg','Desert.jpg'])
 
 if __name__ == '__main__':
 	main()
