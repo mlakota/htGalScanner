@@ -8,7 +8,13 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		HTMLParser.HTMLParser.__init__(self)
 
 	def handle_starttag(self,tag,attrs):
-		pass
+		if tag == 'div':
+			print attrs[0]
+			if attrs[0][0] == 'id' and attrs[0][1] == self.divName:
+				print tag + ' ' + attrs[0][1] + ':',
+				line,char = self.getpos()
+				print 'line:' + str(line),
+				print 'pos:' + str(char)
 
 	def process(self, tree=[]):
 		pass
