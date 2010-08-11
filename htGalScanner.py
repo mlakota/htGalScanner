@@ -21,6 +21,7 @@ class HTScan(object):
 
 	def __init__(self):
 		self.__getConfig()
+		self.imgProcessor = imgProcessor.IMG()
 
 	def debug(self):
 		print 'ARGS:',self.args
