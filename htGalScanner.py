@@ -4,6 +4,8 @@ from os import path as osp
 import ConfigParser
 
 configFile = 'config.ini'
+cfgBool = {'yes':True, 'no':False}
+sectionName = 'global'
 pathOption = 'path'
 recurseOption = 'recursive'
 acceptedExts = ('jpg','png','gif')
@@ -25,17 +27,11 @@ class HTScan(object):
 		print ']'
 
 	def getConfig(self):
-		lines = open(configFile).readlines()
-		for i in lines:
-			option = i.split('=')
-			optName = option[0].strip()
-			optVal = option[1].strip()
-			if optName == pathOption:
-				self.scanned = optVal
-			elif optName == recurseOption:
-				self.recursive = True if optVal	== 'yes' \
-					else False
-				print self.recursive
+		cfg = ConfigParser.RawConfigParser()
+		cfg.read(configFile)
+		self.scanned = cfg.get(sectionName,pathOption)
+		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
+		print self.scanned,self.recursive
 
 	def scanFolders(self):
 		if osp.exists(self.scanned) and osp.isdir(self.scanned):
