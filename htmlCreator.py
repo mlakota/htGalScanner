@@ -32,7 +32,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.singleLine = True
 		else:
 			self.singleLine = False
-		print "single line:",self.singleLine
+
+	def __correctTagPositions(self):
+		pass
 
 	def process(self, tree=[]):
 		self.__findDiv()
