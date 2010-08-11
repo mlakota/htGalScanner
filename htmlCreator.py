@@ -5,7 +5,7 @@ import HTMLParser
 class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __init__(self):
-		pass
+		HTMLParser.HTMLParser.__init__(self)
 
 	def handle_starttag(self,tag,attrs):
 		pass
@@ -32,9 +32,12 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 def main():
 	html = HTMLCreator()
-	html.destPath = 'E:\Galeria'
-	html.destFile = 'galeria.html'
-	html.destDiv = 'gallery'
+	html.set(
+		dest = 'E:\Galeria',
+		htmlFile = 'galeria.html',
+		divName = 'gallery'
+		)
+	html.process()
 
 if __name__ == '__main__':
 	main()
