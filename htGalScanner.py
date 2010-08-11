@@ -14,7 +14,7 @@ acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
 
-	scanned = ''
+	srcPath = ''
 	oldTree = {}
 	tree = {}
 	recursive = True
@@ -25,19 +25,18 @@ class HTScan(object):
 
 	def debug(self):
 		print 'ARGS:',self.args
-		print 'SCANNED:', self.scanned
+		print 'SRCPATH:', self.srcPath
 		print 'RECURSE:', self.recursive
 
 	def __getConfig(self):
 		cfg = ConfigParser.RawConfigParser()
 		cfg.read(configFile)
-		self.scanned = cfg.get(sectionName,pathOption)
+		self.srcPath = cfg.get(sectionName,pathOption)
 		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
-		print self.scanned,self.recursive
 
 	def __scanFolders(self):
-		if osp.exists(self.scanned) and osp.isdir(self.scanned):
-			print self.__scanElement(self.scanned)
+		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
+			print self.__scanElement(self.srcPath)
 
 	def __scanElement(self, folderPath):
 		fileList = []
@@ -55,13 +54,14 @@ class HTScan(object):
 
 	def run(self):
 		while 1:
-			self.__scanFolders()
+			self.tree = self.__scanFolders()
+			if self.tree != self.oldTree:
+				self.imgProcessor.process(self.tree)
 
 
 def main():
 	HT = HTScan()
 	HT.run()
-#	HT.debug()
 
 if __name__ == '__main__':
 	main()
