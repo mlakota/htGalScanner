@@ -26,6 +26,13 @@ class HTScan(object):
 	def __init__(self):
 		self.__getConfig()
 		self.imgProcessor = imgProcessor.IMG()
+		self.imgProcessor.set(
+			source=self.srcPath,
+			dest=self.destPath,
+			size=self.imgSize,
+			thumbSize=self.thumbSize,
+			prefix=self.thumbPrefix
+		)
 
 	def debug(self):
 		print 'RECURSE:', self.recursive
