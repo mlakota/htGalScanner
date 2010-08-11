@@ -9,6 +9,7 @@ configFile = 'config.ini'
 cfgBool = {'yes':True, 'no':False}
 sectionName = 'global'
 pathOption = 'path'
+destPathOption = 'destPath'
 recurseOption = 'recursive'
 acceptedExts = ('jpg','png','gif')
 
@@ -33,6 +34,8 @@ class HTScan(object):
 		cfg.read(configFile)
 		self.srcPath = cfg.get(sectionName,pathOption)
 		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
+		self.destPath = cfg.get(sectionName,destPathOption)
+		print self.destPath
 
 	def __scanFolders(self):
 		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
@@ -53,7 +56,7 @@ class HTScan(object):
 		return fileList
 
 	def run(self):
-		while 1:
+#		while 1:
 			self.tree = self.__scanFolders()
 			if self.tree != self.oldTree:
 				self.imgProcessor.process(self.tree)
