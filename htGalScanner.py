@@ -60,7 +60,7 @@ class HTScan(object):
 
 	def __scanFolders(self):
 		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
-			print self.__scanElement(self.srcPath)
+			return self.__scanElement(self.srcPath)
 
 	def __scanElement(self, folderPath):
 		fileList = []
