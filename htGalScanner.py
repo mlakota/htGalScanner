@@ -21,10 +21,8 @@ class HTScan(object):
 
 	def debug(self):
 		print 'ARGS:',self.args
-		print 'SCANNED: [',
-		for item in self.scanned:
-			print "'" + item + "',",
-		print ']'
+		print 'SCANNED:', self.scanned
+		print 'RECURSE:', self.recursive
 
 	def getConfig(self):
 		cfg = ConfigParser.RawConfigParser()
