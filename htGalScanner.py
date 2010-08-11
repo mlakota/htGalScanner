@@ -11,6 +11,9 @@ sectionName = 'global'
 pathOption = 'path'
 destPathOption = 'destPath'
 recurseOption = 'recursive'
+sizeOption = 'destMaxSize'
+thumbOption = 'thumbMaxSize'
+prefixOption = 'thumbPrefix'
 acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
@@ -35,7 +38,15 @@ class HTScan(object):
 		self.srcPath = cfg.get(sectionName,pathOption)
 		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
 		self.destPath = cfg.get(sectionName,destPathOption)
-		print self.destPath
+		tempList = (cfg.get(sectionName,sizeOption).split(','))
+		for i,item in enumerate(tempList):
+			tempList[i] = int(item.strip())
+		self.imgSize = tuple(tempList)
+		tempList = (cfg.get(sectionName,thumbOption).split(','))
+		for i,item in enumerate(tempList):
+			tempList[i] = int(item.strip())
+		self.thumbSize = tuple(tempList)
+		self.thumbPrefix = cfg.get(sectionName,prefixOption)
 
 	def __scanFolders(self):
 		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
