@@ -27,18 +27,18 @@ class HTScan(object):
 		print 'SCANNED:', self.scanned
 		print 'RECURSE:', self.recursive
 
-	def getConfig(self):
+	def __getConfig(self):
 		cfg = ConfigParser.RawConfigParser()
 		cfg.read(configFile)
 		self.scanned = cfg.get(sectionName,pathOption)
 		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
 		print self.scanned,self.recursive
 
-	def scanFolders(self):
+	def __scanFolders(self):
 		if osp.exists(self.scanned) and osp.isdir(self.scanned):
-			print self.scanElement(self.scanned)
+			print self.__scanElement(self.scanned)
 
-	def scanElement(self, folderPath):
+	def __scanElement(self, folderPath):
 		fileList = []
 		for i in os.listdir(folderPath):
 			tempPath = folderPath+os.sep+i
@@ -49,14 +49,17 @@ class HTScan(object):
 				if osp.isdir(tempPath) and \
 					os.listdir(tempPath):
 					fileList.append( { i :
-						self.scanElement(tempPath)})
+						self.__scanElement(tempPath)})
 		return fileList
+
+	def run(self):
+		self.__getConfig()
+		self.__scanFolders()
 
 
 def main(*args):
 	HT = HTScan(args)
-	HT.getConfig()
-	HT.scanFolders()
+	HT.run()
 #	HT.debug()
 
 if __name__ == '__main__':
