@@ -19,8 +19,8 @@ class HTScan(object):
 	tree = {}
 	recursive = True
 
-	def __init__(self,args):
-		self.args = args
+	def __init__(self):
+		self.__getConfig()
 
 	def debug(self):
 		print 'ARGS:',self.args
@@ -53,14 +53,13 @@ class HTScan(object):
 		return fileList
 
 	def run(self):
-		self.__getConfig()
 		self.__scanFolders()
 
 
-def main(*args):
-	HT = HTScan(args)
+def main():
+	HT = HTScan()
 	HT.run()
 #	HT.debug()
 
 if __name__ == '__main__':
-	main(sys.argv[0],'arg1','arg2')
+	main()
