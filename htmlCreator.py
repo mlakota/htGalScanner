@@ -4,6 +4,10 @@ import HTMLParser
 
 class HTMLCreator(HTMLParser.HTMLParser):
 
+	insideDiv = False
+	openPosition = (0,0)
+	closePosition = (0,0)
+
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
 
