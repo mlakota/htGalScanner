@@ -2,13 +2,7 @@ import os
 from os import path as osp
 import HTMLParser
 
-class HTMLCreator(HTMLParser):
-
-	destPath = ""
-	destFile = ""
-	destDiv = ""
-	fileTree = {}
-
+class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __init__(self):
 		pass
