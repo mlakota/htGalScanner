@@ -25,6 +25,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				self.thumbW,self.thumbH = args[item]
 			elif item == 'prefix':
 				self.thumbPrefix = args[item]
+			elif item == 'htmlFile':
+				self.file = args[item]
 			elif item == 'div':
 				self.divName == args[item]
 
