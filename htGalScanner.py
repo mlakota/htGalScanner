@@ -15,6 +15,7 @@ acceptedExts = ('jpg','png','gif')
 class HTScan(object):
 
 	scanned = ''
+	oldTree = {}
 	tree = {}
 	recursive = True
 
