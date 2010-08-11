@@ -14,8 +14,19 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		pass
 
 	def set(**args):
-		pass
-
+		for item in args.keys():
+			if item == 'source':
+				self.srcPath = args[item]
+			elif item == 'dest':
+				self.destPath = args[item]
+			elif item == 'size':
+				self.imgW,self.imgH = args[item]
+			elif item == 'thumbSize':
+				self.thumbW,self.thumbH = args[item]
+			elif item == 'prefix':
+				self.thumbPrefix = args[item]
+			elif item == 'div':
+				self.divName == args[item]
 
 def main():
 	html = HTMLCreator()
