@@ -13,17 +13,20 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
-			print attrs[0]
 			if attrs[0][0] == 'id' and attrs[0][1] == self.divName:
-				print tag + ' ' + attrs[0][1] + ':',
-				line,char = self.getpos()
-				print 'line:' + str(line),
-				print 'pos:' + str(char)
+				self.openPosition = self.getpos()
+				self.insideDiv = True
+
+	def handle_endtag(self,tag):
+		if tag == 'div' and self.insideDiv == True:
+			self.closePosition = self.getpos()
+			self.insideDiv = False
 
 	def process(self, tree=[]):
 		file = open(self.destPath+os.sep+self.file)
 		for eachLine in file:
 			self.feed(eachLine)
+		print self.openPosition, self.closePosition
 
 	def set(self,**args):
 		for item in args.keys():
