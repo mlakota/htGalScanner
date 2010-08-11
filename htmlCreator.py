@@ -9,7 +9,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	closePosition = ()
 	lines = []
 	text=""
-	imgText = [ r'<img src="' ,r'" alt="', r'" />' ]
+	imgText = [ r'<img src="' ,r'" alt="', '" />\n' ]
+	altText = 'Obrazek'
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
@@ -35,7 +36,11 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		if tree:
 			self.tree = tree
 		self.__findDiv()
+		self.__createText()
 		self.__insertText()
+		for i in self.lines:
+			print i,
+		print
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
@@ -60,7 +65,11 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.singleLine = False
 
 	def __createText(self):
-		pass
+		for element in self.tree:
+			self.text += self.imgText[0] + self.destDir + os.sep + \
+				self.thumbPrefix + element + self.imgText[1] + \
+				self.altText + self.imgText[2]
+
 
 	def __insertText(self):
 		newLines = []
