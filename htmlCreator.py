@@ -51,9 +51,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			:self.openPosition[1]]+'</div>\n')
 		for eachLine in self.lines[self.closePosition[0]:]:
 			newLines.append(eachLine)
-		for i in newLines:
-			print i,
-		print
+		self.lines = newLines
 
 	def process(self, tree=[]):
 		self.__findDiv()
