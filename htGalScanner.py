@@ -77,11 +77,11 @@ class HTScan(object):
 		return fileList
 
 	def run(self):
-#		while 1:
+		while 1:
 			self.tree = self.__scanFolders()
 			if self.tree != self.oldTree:
 				self.imgProcessor.process(self.tree)
-			self.debug()
+				self.oldTree = self.tree
 
 
 def main():
