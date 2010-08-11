@@ -22,12 +22,15 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.closePosition = self.getpos()
 			self.insideDiv = False
 
-	def process(self, tree=[]):
-		file = open(self.destPath+os.sep+self.file)
+	def __findDiv(self):
+		file = open(self.file)
 		for eachLine in file:
 			self.feed(eachLine)
 			if self.closePosition:
 				break
+
+	def process(self, tree=[]):
+		self.__findDiv()
 
 	def set(self,**args):
 		for item in args.keys():
@@ -49,9 +52,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 def main():
 	html = HTMLCreator()
 	html.set(
-		dest = 'E:\Galeria',
+		dest = 'E:\Galeria\zdjecia',
 		divName = 'galeria',
-		htmlFile = 'galeria.html'
+		htmlFile = 'E:\Galeria\galeria.html'
 		)
 	html.process()
 
