@@ -7,6 +7,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	insideDiv = False
 	openPosition = ()
 	closePosition = ()
+	lines = []
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
@@ -23,8 +24,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.insideDiv = False
 
 	def __findDiv(self):
-		file = open(self.file)
-		for eachLine in file:
+		self.lines = open(self.file).readlines()
+		for eachLine in lines:
 			self.feed(eachLine)
 			if self.closePosition:
 				break
