@@ -51,6 +51,13 @@ class HTScan(object):
 			prefix=self.thumbPrefix
 		)
 
+	def run(self):
+		while 1:
+			self.tree = self.__scanFolders()
+			if self.tree != self.oldTree:
+				self.imgProcessor.process(self.tree)
+				self.oldTree = self.tree
+
 	def debug(self):
 		print 'RECURSE:', self.recursive
 		print 'SRCPATH:', self.srcPath
@@ -99,13 +106,6 @@ class HTScan(object):
 					fileList.append( { i :
 						self.__scanElement(tempPath)})
 		return fileList
-
-	def run(self):
-		while 1:
-			self.tree = self.__scanFolders()
-			if self.tree != self.oldTree:
-				self.imgProcessor.process(self.tree)
-				self.oldTree = self.tree
 
 
 def main():
