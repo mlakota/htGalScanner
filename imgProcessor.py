@@ -63,20 +63,3 @@ class IMG(object):
 				self.thumbW,self.thumbH = args[item]
 			elif item == 'prefix':
 				self.thumbPrefix = args[item]
-
-
-def main():
-	img = IMG()
-	img.set(
-		source="E:\Fotki",
-		dest="E:\Galeria\zdjecia",
-		size=(700,700),
-		thumbSize=(100,100),
-		prefix="t_"
-		)
-	img.process(['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
-		['Koala.jpg', 'Lighthouse.jpg']}])
-
-
-if __name__ == '__main__':
-	main()
