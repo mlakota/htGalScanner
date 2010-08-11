@@ -53,7 +53,8 @@ class HTScan(object):
 		return fileList
 
 	def run(self):
-		self.__scanFolders()
+		while 1:
+			self.__scanFolders()
 
 
 def main():
