@@ -10,12 +10,18 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	def handle_starttag(self,tag,attrs):
 		pass
 
+	def process(self, tree=[]):
+		pass
+
+	def set(**args):
+		pass
+
+
 def main():
 	html = HTMLCreator()
 	html.destPath = 'E:\Galeria'
 	html.destFile = 'galeria.html'
 	html.destDiv = 'gallery'
-	print html.destPath, html.destFile, html.destDiv
 
 if __name__ == '__main__':
 	main()
