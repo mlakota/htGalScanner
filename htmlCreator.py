@@ -33,7 +33,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		else:
 			self.singleLine = False
 
-	def __correctTagPositions(self):
+	def __insertText(self):
 		pass
 
 	def process(self, tree=[]):
