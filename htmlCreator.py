@@ -13,6 +13,27 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
 
+	def set(self,**args):
+		for item in args.keys():
+			if item == 'imgFolder':
+				self.imgFolder = args[item]
+			elif item == 'templatePath':
+				self.templatePath = args[item]
+			elif item == 'destDir':
+				self.destDir = args[item]
+			elif item == 'destFile':
+				self.destFile = args[item]
+			elif item == 'thumbSize':
+				self.thumbW,self.thumbH = args[item]
+			elif item == 'prefix':
+				self.thumbPrefix = args[item]
+			elif item == 'divName':
+				self.divName = args[item]
+
+	def process(self, tree=[]):
+		self.__findDiv()
+		self.__insertText()
+
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
 			if attrs[0][0] == 'id' and attrs[0][1] == self.divName:
@@ -56,26 +77,6 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			newLines.append(eachLine)
 		self.lines = newLines
 
-	def process(self, tree=[]):
-		self.__findDiv()
-		self.__insertText()
-
-	def set(self,**args):
-		for item in args.keys():
-			if item == 'imgFolder':
-				self.imgFolder = args[item]
-			elif item == 'templatePath':
-				self.templatePath = args[item]
-			elif item == 'destDir':
-				self.destDir = args[item]
-			elif item == 'destFile':
-				self.destFile = args[item]
-			elif item == 'thumbSize':
-				self.thumbW,self.thumbH = args[item]
-			elif item == 'prefix':
-				self.thumbPrefix = args[item]
-			elif item == 'divName':
-				self.divName = args[item]
 
 def main():
 	html = HTMLCreator()
