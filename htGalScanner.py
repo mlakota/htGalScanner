@@ -4,6 +4,7 @@ from os import path as osp
 import ConfigParser
 
 import imgProcessor
+import htmlCreator
 
 
 configFile = 'config.ini'
