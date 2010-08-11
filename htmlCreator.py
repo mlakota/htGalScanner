@@ -26,7 +26,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __findDiv(self):
 		self.lines = open(self.file).readlines()
-		for eachLine in lines:
+		for eachLine in self.lines:
 			self.feed(eachLine)
 			if self.closePosition:
 				break
@@ -36,10 +36,28 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.singleLine = False
 
 	def __insertText(self):
-		pass
+		newLines = []
+		for eachLine in self.lines[:self.openPosition[0]-1]:
+			newLines.append(eachLine)
+		if self.singleLine:
+			newLines.append(self.lines[
+				(self.openPosition[0]-1)][:self.closePosition[1]]+"\n")
+		else:
+			newLines.append(self.lines[self.openPosition[0]-1])
+		newLines.append('\n')
+		newLines.append(self.text+'\n')
+		newLines.append('\n')
+		newLines.append(self.lines[self.openPosition[0]-1][
+			:self.openPosition[1]]+'</div>\n')
+		for eachLine in self.lines[self.closePosition[0]:]:
+			newLines.append(eachLine)
+		for i in newLines:
+			print i,
+		print
 
 	def process(self, tree=[]):
 		self.__findDiv()
+		self.__insertText()
 
 	def set(self,**args):
 		for item in args.keys():
