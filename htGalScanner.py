@@ -7,13 +7,20 @@ import imgProcessor
 
 configFile = 'config.ini'
 cfgBool = {'yes':True, 'no':False}
+
 sectionName = 'global'
-pathOption = 'path'
-destPathOption = 'destPath'
+pathOption = 'image_source'
+destPathOption = 'image_destination'
 recurseOption = 'recursive'
-sizeOption = 'destMaxSize'
-thumbOption = 'thumbMaxSize'
-prefixOption = 'thumbPrefix'
+
+templateOption = 'html_template'
+htmlFolderOption = 'html_destination_folder'
+htmlFileOption = 'html_destination_filename'
+
+sizeOption = 'image_size'
+thumbOption = 'thumbnail_size'
+prefixOption = 'thumbnail_prefix'
+
 acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
