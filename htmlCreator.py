@@ -28,6 +28,11 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.feed(eachLine)
 			if self.closePosition:
 				break
+		if self.openPosition[0] == self.closePosition[0]:
+			self.singleLine = True
+		else:
+			self.singleLine = False
+		print "single line:",self.singleLine
 
 	def process(self, tree=[]):
 		self.__findDiv()
