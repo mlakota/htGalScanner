@@ -74,14 +74,6 @@ def main():
 		thumbSize=(100,100),
 		prefix="t_"
 		)
-#	img.srcPath = 'E:\Fotki'
-#	img.destPath = 'E:\Galeria\zdjecia'
-#	img.imgW = 600
-#	img.imgH = 600
-#	img.thumbW = img.thumbH = 100
-#	img.thumbPrefix="th_"
-#	img.imgTree = ['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
-#	['Koala.jpg', 'Lighthouse.jpg']}]
 	img.process(['Chrysanthemum.jpg', 'Desert.jpg', {'folder2' :
 		['Koala.jpg', 'Lighthouse.jpg']}])
 
