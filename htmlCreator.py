@@ -1,5 +1,7 @@
 import os
 from os import path as osp
+import string
+
 import HTMLParser
 
 class HTMLCreator(HTMLParser.HTMLParser):
@@ -64,7 +66,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __createText(self):
 		for element in self.tree:
-			self.text += self.imgText[0] + self.destDir + os.sep + \
+			tempPath = string.replace(self.imgFolder,self.destDir+os.sep,'')
+			self.text += self.imgText[0] + tempPath + '/' + \
 				self.thumbPrefix + element + self.imgText[1] + \
 				self.altText + self.imgText[2]
 
