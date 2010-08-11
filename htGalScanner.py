@@ -3,6 +3,8 @@ import os
 from os import path as osp
 import ConfigParser
 
+import imgProcessor
+
 configFile = 'config.ini'
 cfgBool = {'yes':True, 'no':False}
 sectionName = 'global'
