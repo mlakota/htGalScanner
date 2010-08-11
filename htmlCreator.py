@@ -13,6 +13,8 @@ class HTMLCreator(HTMLParser):
 	def __init__(self):
 		pass
 
+	def handle_starttag(self,tag,attrs):
+		pass
 
 def main():
 	html = HTMLCreator()
