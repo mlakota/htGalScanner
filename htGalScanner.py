@@ -1,47 +1,68 @@
 import sys
 import os
 from os import path as osp
+import ConfigParser
+
+import imgProcessor
 
 configFile = 'config.ini'
+cfgBool = {'yes':True, 'no':False}
+sectionName = 'global'
 pathOption = 'path'
+destPathOption = 'destPath'
 recurseOption = 'recursive'
+sizeOption = 'destMaxSize'
+thumbOption = 'thumbMaxSize'
+prefixOption = 'thumbPrefix'
 acceptedExts = ('jpg','png','gif')
 
 class HTScan(object):
 
-	scanned = []
+	srcPath = ''
+	oldTree = {}
 	tree = {}
 	recursive = True
 
-	def __init__(self,args):
-		self.args = args
+	def __init__(self):
+		self.__getConfig()
+		self.imgProcessor = imgProcessor.IMG()
+		self.imgProcessor.set(
+			source=self.srcPath,
+			dest=self.destPath,
+			size=self.imgSize,
+			thumbSize=self.thumbSize,
+			prefix=self.thumbPrefix
+		)
 
 	def debug(self):
-		print 'ARGS:',self.args
-		print 'SCANNED: [',
-		for item in self.scanned:
-			print "'" + item + "',",
-		print ']'
+		print 'RECURSE:', self.recursive
+		print 'SRCPATH:', self.srcPath
+		print 'DESTPATH:', self.destPath
+		print 'IMGSIZE:', self.imgSize
+		print 'THUMBSIZE:', self.thumbSize
+		print 'PREFIX:', self.thumbPrefix
 
-	def getConfig(self):
-		lines = open(configFile).readlines()
-		for i in lines:
-			option = i.split('=')
-			optName = option[0].strip()
-			if optName == pathOption:
-				for item in option[1].split(','):
-					self.scanned.append(item.strip())
-			elif optName == recurseOption:
-				self.recursive = True if option[1].strip() \
-					== 'yes' else False
-				print self.recursive
+	def __getConfig(self):
+		cfg = ConfigParser.RawConfigParser()
+		cfg.read(configFile)
+		self.srcPath = cfg.get(sectionName,pathOption)
+		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
+		self.destPath = cfg.get(sectionName,destPathOption)
+		tempList = (cfg.get(sectionName,sizeOption).split(','))
+		for i,item in enumerate(tempList):
+			tempList[i] = int(item.strip())
+		self.imgSize = tuple(tempList)
+		tempList = (cfg.get(sectionName,thumbOption).split(','))
+		for i,item in enumerate(tempList):
+			tempList[i] = int(item.strip())
+		self.thumbSize = tuple(tempList)
+		self.thumbPrefix = cfg.get(sectionName,prefixOption)
 
-	def scanFolders(self):
-		for folder in self.scanned:
-			if osp.exists(folder) and osp.isdir(folder):
-				print self.scanElement(folder)
+	def __scanFolders(self):
+		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
+			return self.__scanElement(self.srcPath)
 
-	def scanElement(self, folderPath):
+	def __scanElement(self, folderPath):
 		fileList = []
 		for i in os.listdir(folderPath):
 			tempPath = folderPath+os.sep+i
@@ -52,15 +73,20 @@ class HTScan(object):
 				if osp.isdir(tempPath) and \
 					os.listdir(tempPath):
 					fileList.append( { i :
-						self.scanElement(tempPath)})
+						self.__scanElement(tempPath)})
 		return fileList
 
+	def run(self):
+		while 1:
+			self.tree = self.__scanFolders()
+			if self.tree != self.oldTree:
+				self.imgProcessor.process(self.tree)
+				self.oldTree = self.tree
 
-def main(*args):
-	HT = HTScan(args)
-	HT.getConfig()
-	HT.scanFolders()
-#	HT.debug()
+
+def main():
+	HT = HTScan()
+	HT.run()
 
 if __name__ == '__main__':
-	main(sys.argv[0],'arg1','arg2')
+	main()
