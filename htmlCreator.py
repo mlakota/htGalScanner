@@ -9,6 +9,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	closePosition = ()
 	lines = []
 	text=""
+	imgText = [ r'<img src="' ,r'" alt="', r'" />' ]
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
