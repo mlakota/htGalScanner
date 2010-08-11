@@ -43,6 +43,7 @@ class HTScan(object):
 
 	def __init__(self):
 		self.__getConfig()
+
 		self.imgProcessor = imgProcessor.IMG()
 		self.imgProcessor.set(
 			source=self.srcPath,
@@ -50,6 +51,11 @@ class HTScan(object):
 			size=self.imgSize,
 			thumbSize=self.thumbSize,
 			prefix=self.thumbPrefix
+		)
+
+		self.htmlCreator = htmlCreator.HTMLCreator()
+		self.htmlCreator.set(
+
 		)
 
 	def run(self):
