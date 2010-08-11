@@ -1,6 +1,7 @@
 import sys
 import os
 from os import path as osp
+import ConfigParser
 
 configFile = 'config.ini'
 pathOption = 'path'
