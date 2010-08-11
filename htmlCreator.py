@@ -38,9 +38,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		self.__findDiv()
 		self.__createText()
 		self.__insertText()
-		for i in self.lines:
-			print i,
-		print
+		self.__save()
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
@@ -70,6 +68,11 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				self.thumbPrefix + element + self.imgText[1] + \
 				self.altText + self.imgText[2]
 
+	def __save(self):
+		out = open(self.destDir+os.sep+self.destFile,"w")
+		for i in self.lines:
+			out.write(i)
+		out.close()
 
 	def __insertText(self):
 		newLines = []
