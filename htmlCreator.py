@@ -17,7 +17,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				print 'pos:' + str(char)
 
 	def process(self, tree=[]):
-		pass
+		file = open(self.destPath+os.sep+self.file)
+		for eachLine in file:
+			self.feed(eachLine)
 
 	def set(**args):
 		for item in args.keys():
