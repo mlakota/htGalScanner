@@ -25,6 +25,8 @@ class IMG(object):
 	def __processElement(self, source, dest, elem):
 		assert(self.__checkNecessaryFields())
 		if isinstance(elem,dict):
+			if not osp.exists(dest):
+				os.mkdir(dest)
 			for i in elem.values()[0]:
 				self.__processElement(source+os.sep+
 					elem.keys()[0], dest+os.sep+
