@@ -21,7 +21,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		for eachLine in file:
 			self.feed(eachLine)
 
-	def set(**args):
+	def set(self,**args):
 		for item in args.keys():
 			if item == 'source':
 				self.srcPath = args[item]
@@ -35,15 +35,15 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				self.thumbPrefix = args[item]
 			elif item == 'htmlFile':
 				self.file = args[item]
-			elif item == 'div':
-				self.divName == args[item]
+			elif item == 'divName':
+				self.divName = args[item]
 
 def main():
 	html = HTMLCreator()
 	html.set(
 		dest = 'E:\Galeria',
-		htmlFile = 'galeria.html',
-		divName = 'gallery'
+		divName = 'galeria',
+		htmlFile = 'galeria.html'
 		)
 	html.process()
 
