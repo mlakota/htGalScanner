@@ -31,6 +31,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				self.divName = args[item]
 
 	def process(self, tree=[]):
+		if tree:
+			self.tree = tree
 		self.__findDiv()
 		self.__insertText()
 
