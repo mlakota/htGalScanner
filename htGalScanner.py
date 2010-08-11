@@ -28,9 +28,12 @@ class HTScan(object):
 		self.imgProcessor = imgProcessor.IMG()
 
 	def debug(self):
-		print 'ARGS:',self.args
-		print 'SRCPATH:', self.srcPath
 		print 'RECURSE:', self.recursive
+		print 'SRCPATH:', self.srcPath
+		print 'DESTPATH:', self.destPath
+		print 'IMGSIZE:', self.imgSize
+		print 'THUMBSIZE:', self.thumbSize
+		print 'PREFIX:', self.thumbPrefix
 
 	def __getConfig(self):
 		cfg = ConfigParser.RawConfigParser()
@@ -71,6 +74,7 @@ class HTScan(object):
 			self.tree = self.__scanFolders()
 			if self.tree != self.oldTree:
 				self.imgProcessor.process(self.tree)
+			self.debug()
 
 
 def main():
