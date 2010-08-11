@@ -5,6 +5,7 @@ import ConfigParser
 
 import imgProcessor
 
+
 configFile = 'config.ini'
 cfgBool = {'yes':True, 'no':False}
 
@@ -23,12 +24,21 @@ prefixOption = 'thumbnail_prefix'
 
 acceptedExts = ('jpg','png','gif')
 
+
 class HTScan(object):
 
 	srcPath = ''
+	destPath = ''
+	recursive = True
+	tmplPath = ''
+	htmlDir = ''
+	htmlFile = ''
+	imgSize = ()
+	thumbSize = ()
+	thumbPrefix = ''
 	oldTree = {}
 	tree = {}
-	recursive = True
+
 
 	def __init__(self):
 		self.__getConfig()
@@ -52,17 +62,24 @@ class HTScan(object):
 	def __getConfig(self):
 		cfg = ConfigParser.RawConfigParser()
 		cfg.read(configFile)
+
 		self.srcPath = cfg.get(sectionName,pathOption)
-		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
 		self.destPath = cfg.get(sectionName,destPathOption)
+		self.recursive = cfgBool[cfg.get(sectionName,recurseOption)]
+
+		self.htmlDir = cfg.get(sectionName,htmlFolderOption)
+		self.htmlFile = cfg.get(sectionName,htmlFileOption)
+
 		tempList = (cfg.get(sectionName,sizeOption).split(','))
 		for i,item in enumerate(tempList):
 			tempList[i] = int(item.strip())
 		self.imgSize = tuple(tempList)
+
 		tempList = (cfg.get(sectionName,thumbOption).split(','))
 		for i,item in enumerate(tempList):
 			tempList[i] = int(item.strip())
 		self.thumbSize = tuple(tempList)
+
 		self.thumbPrefix = cfg.get(sectionName,prefixOption)
 
 	def __scanFolders(self):
