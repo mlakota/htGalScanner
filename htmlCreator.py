@@ -56,6 +56,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	def process(self, tree=[]):
 		self.__findDiv()
 		self.__insertText()
+		for i in self.lines:
+			print i,
+		print
 
 	def set(self,**args):
 		for item in args.keys():
@@ -77,9 +80,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 def main():
 	html = HTMLCreator()
 	html.set(
-		dest = 'E:\Galeria\zdjecia',
+		dest = r'E:\htGallery\n destination',
 		divName = 'galeria',
-		htmlFile = 'E:\Galeria\galeria.html'
+		htmlFile = r'E:\htGallery\template.html'
 		)
 	html.process()
 
