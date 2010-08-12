@@ -1,5 +1,7 @@
 import os
 from os import path as osp
+import string
+
 import HTMLParser
 
 class HTMLCreator(HTMLParser.HTMLParser):
@@ -8,10 +10,68 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	openPosition = ()
 	closePosition = ()
 	lines = []
-	text="Hello, Python!"
+	text=""
+	imgText = '''
+		<a href="%s" rel="lightbox[%s]">
+		<img src="%s" alt="%s" />
+		</a>\n'''
+	dirText = '''
+		<a href="%s">
+		<img src="%s" alt="%s" />
+		</a>\n'''
+	relText = 'Galeria1'
+	altText = 'Obrazek'
+	returnText = '<a href="%s">Return</a>'
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
+
+	def set(self,**args):
+		for item in args.keys():
+			if item == 'imgFolder':
+				self.imgFolder = args[item]
+			elif item == 'templatePath':
+				self.templatePath = args[item]
+			elif item == 'destDir':
+				self.destDir = args[item]
+			elif item == 'destFile':
+				self.destFile = args[item]
+			elif item == 'thumbSize':
+				self.thumbW,self.thumbH = args[item]
+			elif item == 'prefix':
+				self.thumbPrefix = args[item]
+			elif item == 'divName':
+				self.divName = args[item]
+
+	def process(self, tree=[]):
+		if tree:
+			self.tree = tree
+		self.__findDiv()
+		self.__processLevel(self.tree, self.imgFolder, self.destFile,"")
+
+	def __processLevel(self, tree, directory, fileName,parentName):
+		fileText = ""
+		index = 0
+		for element in tree:
+			if isinstance(element, dict):
+				childDir = string.join([directory,os.sep,element.keys()[0]],"")
+				childFile = string.join(fileName.split('.'),
+					string.join(['_',str(index),'.'],""))
+				self.__processLevel(element.values()[0], childDir, childFile,
+					fileName)
+				fileText += self.dirText % (childFile, "", element.keys()[0])
+				index += 1
+			else:
+				fileText += self.imgText % (
+					string.join([directory,'/',element],""),
+					self.relText,
+					string.join([directory,'/',self.thumbPrefix,element],""),
+					self.altText
+				)
+		if parentName:
+			fileText += self.returnText % parentName
+		content = self.__insertText(fileText)
+		self.__save(self.destDir+os.sep+fileName, content)
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
@@ -25,7 +85,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.insideDiv = False
 
 	def __findDiv(self):
-		self.lines = open(self.file).readlines()
+		self.lines = open(self.templatePath).readlines()
 		for eachLine in self.lines:
 			self.feed(eachLine)
 			if self.closePosition:
@@ -35,7 +95,23 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		else:
 			self.singleLine = False
 
-	def __insertText(self):
+	def __createText(self):
+		for element in self.tree:
+			self.text += self.imgtext % (
+				string.join([self.imgfolder,'/',element],""),
+				self.reltext,
+				string.join([self.imgfolder,'/',self.thumbprefix,
+					element],""),
+				self.alttext
+			)
+
+	def __save(self, file, content):
+		out = open(file,"w")
+		for line in content:
+			out.write(line)
+		out.close()
+
+	def __insertText(self,fileText):
 		newLines = []
 		for eachLine in self.lines[:self.openPosition[0]-1]:
 			newLines.append(eachLine)
@@ -45,46 +121,27 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		else:
 			newLines.append(self.lines[self.openPosition[0]-1])
 		newLines.append('\n')
-		newLines.append(self.text+'\n')
+		newLines.append(fileText+'\n')
 		newLines.append('\n')
 		newLines.append(self.lines[self.openPosition[0]-1][
 			:self.openPosition[1]]+'</div>\n')
 		for eachLine in self.lines[self.closePosition[0]:]:
 			newLines.append(eachLine)
-		self.lines = newLines
-
-	def process(self, tree=[]):
-		self.__findDiv()
-		self.__insertText()
-		for i in self.lines:
-			print i,
-		print
-
-	def set(self,**args):
-		for item in args.keys():
-			if item == 'source':
-				self.srcPath = args[item]
-			elif item == 'dest':
-				self.destPath = args[item]
-			elif item == 'size':
-				self.imgW,self.imgH = args[item]
-			elif item == 'thumbSize':
-				self.thumbW,self.thumbH = args[item]
-			elif item == 'prefix':
-				self.thumbPrefix = args[item]
-			elif item == 'htmlFile':
-				self.file = args[item]
-			elif item == 'divName':
-				self.divName = args[item]
+		return newLines
 
 def main():
 	html = HTMLCreator()
 	html.set(
-		dest = r'E:\htGallery\n destination',
-		divName = 'galeria',
-		htmlFile = r'E:\htGallery\template.html'
+		imgFolder = r'n destination',
+		templatePath = r'E:\htGallery\template.html',
+		destDir = 'E:\htGallery',
+		destFile = 'galeria.html',
+		thumbSize = (100,100),
+		prefix = 'th_',
+		divName = 'galeria'
 		)
-	html.process()
+	html.process(['Chrysanthemum.jpg','Desert.jpg',
+		{'folder2':['Koala.jpg','Penguins.jpg']} ])
 
 if __name__ == '__main__':
 	main()
