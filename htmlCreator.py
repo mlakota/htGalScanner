@@ -21,7 +21,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		</a>\n'''
 	relText = 'Galeria1'
 	altText = 'Obrazek'
-	returnText = '<a href="%s">Return</a>'
+	returnText = '<div id="return"><a href="%s">Return</a></div>'
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
