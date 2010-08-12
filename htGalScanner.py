@@ -18,10 +18,12 @@ recurseOption = 'recursive'
 templateOption = 'html_template'
 htmlFolderOption = 'html_destination_folder'
 htmlFileOption = 'html_destination_filename'
+relImgPathOption = 'html_image_destination'
 
 sizeOption = 'image_size'
 thumbOption = 'thumbnail_size'
 prefixOption = 'thumbnail_prefix'
+divNameOption = 'div_name'
 
 acceptedExts = ('jpg','png','gif')
 
@@ -55,7 +57,13 @@ class HTScan(object):
 
 		self.htmlCreator = htmlCreator.HTMLCreator()
 		self.htmlCreator.set(
-
+			imgFolder = self.relImgPath,
+			templatePath = self.htmlTemplate,
+			destDir = self.htmlDir,
+			destFile = self.htmlFile,
+			thumbSize = self.thumbSize,
+			prefix = self.thumbPrefix,
+			divName = self.divName,
 		)
 
 	def run(self):
@@ -63,6 +71,7 @@ class HTScan(object):
 			self.tree = self.__scanFolders()
 			if self.tree != self.oldTree:
 				self.imgProcessor.process(self.tree)
+				self.htmlCreator.process(self.tree)
 				self.oldTree = self.tree
 
 	def debug(self):
@@ -83,6 +92,7 @@ class HTScan(object):
 
 		self.htmlDir = cfg.get(sectionName,htmlFolderOption)
 		self.htmlFile = cfg.get(sectionName,htmlFileOption)
+		self.relImgPath = cfg.get(sectionName,relImgPathOption)
 
 		tempList = (cfg.get(sectionName,sizeOption).split(','))
 		for i,item in enumerate(tempList):
@@ -95,6 +105,8 @@ class HTScan(object):
 		self.thumbSize = tuple(tempList)
 
 		self.thumbPrefix = cfg.get(sectionName,prefixOption)
+		self.divName = cfg.get(sectionName,divNameOption)
+		self.htmlTemplate = cfg.get(sectionName,templateOption)
 
 	def __scanFolders(self):
 		if osp.exists(self.srcPath) and osp.isdir(self.srcPath):
