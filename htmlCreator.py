@@ -99,7 +99,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 def main():
 	html = HTMLCreator()
 	html.set(
-		imgFolder = r'E:\htGallery\n destination',
+		imgFolder = r'n destination',
 		templatePath = r'E:\htGallery\template.html',
 		destDir = 'E:\htGallery',
 		destFile = 'galeria.html',
