@@ -42,9 +42,14 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		if tree:
 			self.tree = tree
 		self.__findDiv()
+
+		self.__processLevel(tree, name)
 		self.__createText()
 		self.__insertText()
 		self.__save()
+
+	def __processLevel(self, tree, name):
+		pass
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
@@ -100,7 +105,6 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		for eachLine in self.lines[self.closePosition[0]:]:
 			newLines.append(eachLine)
 		self.lines = newLines
-
 
 def main():
 	html = HTMLCreator()
