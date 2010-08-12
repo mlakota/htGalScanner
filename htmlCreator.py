@@ -46,9 +46,14 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __processLevel(self, tree, directory, fileName):
 		fileText = ""
+		index = 0
 		for element in tree:
 			if isinstance(element, dict):
-				pass
+				childDir = string.join([directory,os.sep,element.keys()[0]],"")
+				childFile = string.join(fileName.split('.'),
+					string.join(['_',str(index),'.'],""))
+				self.__processLevel(element.values()[0], childDir, childFile)
+				index += 1
 			else:
 				fileText += self.imgText % (
 					string.join([directory,'/',element],""),
