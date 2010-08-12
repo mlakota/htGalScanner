@@ -42,14 +42,22 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		if tree:
 			self.tree = tree
 		self.__findDiv()
+		self.__processLevel(self.tree, self.imgFolder, self.destFile)
 
-		self.__processLevel(tree, name)
-		self.__createText()
-		self.__insertText()
-		self.__save()
-
-	def __processLevel(self, tree, name):
-		pass
+	def __processLevel(self, tree, directory, fileName):
+		fileText = ""
+		for element in tree:
+			if isinstance(element, dict):
+				pass
+			else:
+				fileText += self.imgText % (
+					string.join([directory,'/',element],""),
+					self.relText,
+					string.join([directory,'/',self.thumbPrefix,element],""),
+					self.altText
+				)
+		content = self.__insertText(fileText)
+		self.__save(self.destDir+os.sep+fileName, content)
 
 	def handle_starttag(self,tag,attrs):
 		if tag == 'div':
@@ -75,20 +83,20 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __createText(self):
 		for element in self.tree:
-			self.text += self.imgText % (
-				string.join([self.imgFolder,'/',element],""),
-				self.relText,
-				string.join([self.imgFolder,'/',self.thumbPrefix,element],""),
-				self.altText
+			self.text += self.imgtext % (
+				string.join([self.imgfolder,'/',element],""),
+				self.reltext,
+				string.join([self.imgfolder,'/',self.thumbprefix,element],""),
+				self.alttext
 			)
 
-	def __save(self):
-		out = open(self.destDir+os.sep+self.destFile,"w")
-		for i in self.lines:
-			out.write(i)
+	def __save(self, file, content):
+		out = open(file,"w")
+		for line in content:
+			out.write(line)
 		out.close()
 
-	def __insertText(self):
+	def __insertText(self,fileText):
 		newLines = []
 		for eachLine in self.lines[:self.openPosition[0]-1]:
 			newLines.append(eachLine)
@@ -98,13 +106,13 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		else:
 			newLines.append(self.lines[self.openPosition[0]-1])
 		newLines.append('\n')
-		newLines.append(self.text+'\n')
+		newLines.append(fileText+'\n')
 		newLines.append('\n')
 		newLines.append(self.lines[self.openPosition[0]-1][
 			:self.openPosition[1]]+'</div>\n')
 		for eachLine in self.lines[self.closePosition[0]:]:
 			newLines.append(eachLine)
-		self.lines = newLines
+		return newLines
 
 def main():
 	html = HTMLCreator()
