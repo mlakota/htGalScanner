@@ -67,9 +67,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	def __createText(self):
 		for element in self.tree:
 			tempPath = string.replace(self.imgFolder,self.destDir+os.sep,'')
-			self.text += self.imgText[0] + tempPath + '/' + \
-				self.thumbPrefix + element + self.imgText[1] + \
-				self.altText + self.imgText[2]
+			self.text += string.join([self.imgText[0], tempPath, 
+				'/', self.thumbPrefix, element, self.imgText[1],
+				self.altText, self.imgText[2]],"")
 
 	def __save(self):
 		out = open(self.destDir+os.sep+self.destFile,"w")
