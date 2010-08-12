@@ -117,7 +117,7 @@ class HTScan(object):
 		for i in os.listdir(folderPath):
 			tempPath = folderPath+os.sep+i
 			if osp.isfile(tempPath) and \
-				i.split('.')[1] in acceptedExts:
+				i.split('.')[1].lower() in acceptedExts:
 				fileList.append(i)
 			elif self.recursive:
 				if osp.isdir(tempPath) and \
