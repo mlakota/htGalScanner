@@ -11,7 +11,11 @@ class HTMLCreator(HTMLParser.HTMLParser):
 	closePosition = ()
 	lines = []
 	text=""
-	imgText = [ r'<img src="' ,r'" alt="', '" />\n' ]
+	imgText = '''
+		<a href="%s" rel="lightbox[%s]">
+		<img src="%s" alt="%s" />
+		</a>\n'''
+	relText = 'Galeria1'
 	altText = 'Obrazek'
 
 	def __init__(self):
@@ -66,10 +70,12 @@ class HTMLCreator(HTMLParser.HTMLParser):
 
 	def __createText(self):
 		for element in self.tree:
-			tempPath = string.replace(self.imgFolder,self.destDir+os.sep,'')
-			self.text += string.join([self.imgText[0], tempPath, 
-				'/', self.thumbPrefix, element, self.imgText[1],
-				self.altText, self.imgText[2]],"")
+			self.text += self.imgText % (
+				string.join([self.imgFolder,'/',element],""),
+				self.relText,
+				string.join([self.imgFolder,'/',self.thumbPrefix,element],""),
+				self.altText
+			)
 
 	def __save(self):
 		out = open(self.destDir+os.sep+self.destFile,"w")
