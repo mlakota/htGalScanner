@@ -100,7 +100,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 			self.text += self.imgtext % (
 				string.join([self.imgfolder,'/',element],""),
 				self.reltext,
-				string.join([self.imgfolder,'/',self.thumbprefix,element],""),
+				string.join([self.imgfolder,'/',self.thumbprefix,
+					element],""),
 				self.alttext
 			)
 
