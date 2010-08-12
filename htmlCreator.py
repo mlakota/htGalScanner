@@ -17,6 +17,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		</a>\n'''
 	relText = 'Galeria1'
 	altText = 'Obrazek'
+	returnText = '<a href="%s">Return</a>'
 
 	def __init__(self):
 		HTMLParser.HTMLParser.__init__(self)
@@ -42,9 +43,9 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		if tree:
 			self.tree = tree
 		self.__findDiv()
-		self.__processLevel(self.tree, self.imgFolder, self.destFile)
+		self.__processLevel(self.tree, self.imgFolder, self.destFile,"")
 
-	def __processLevel(self, tree, directory, fileName):
+	def __processLevel(self, tree, directory, fileName,parentName):
 		fileText = ""
 		index = 0
 		for element in tree:
@@ -52,7 +53,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 				childDir = string.join([directory,os.sep,element.keys()[0]],"")
 				childFile = string.join(fileName.split('.'),
 					string.join(['_',str(index),'.'],""))
-				self.__processLevel(element.values()[0], childDir, childFile)
+				self.__processLevel(element.values()[0], childDir, childFile,
+					fileName)
 				index += 1
 			else:
 				fileText += self.imgText % (
@@ -61,6 +63,8 @@ class HTMLCreator(HTMLParser.HTMLParser):
 					string.join([directory,'/',self.thumbPrefix,element],""),
 					self.altText
 				)
+		if parentName:
+			fileText += self.returnText % parentName
 		content = self.__insertText(fileText)
 		self.__save(self.destDir+os.sep+fileName, content)
 
