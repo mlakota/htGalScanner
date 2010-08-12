@@ -15,6 +15,10 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		<a href="%s" rel="lightbox[%s]">
 		<img src="%s" alt="%s" />
 		</a>\n'''
+	dirText = '''
+		<a href="%s">
+		<img src="%s" alt="%s" />
+		</a>\n'''
 	relText = 'Galeria1'
 	altText = 'Obrazek'
 	returnText = '<a href="%s">Return</a>'
@@ -55,6 +59,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 					string.join(['_',str(index),'.'],""))
 				self.__processLevel(element.values()[0], childDir, childFile,
 					fileName)
+				fileText += self.dirText % (childFile, "", element.keys()[0])
 				index += 1
 			else:
 				fileText += self.imgText % (
