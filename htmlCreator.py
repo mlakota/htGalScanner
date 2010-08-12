@@ -17,7 +17,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 		</a>\n'''
 	dirText = '''
 		<a href="%s">
-		<img src="%s" alt="%s" />
+		<p>%s</p>
 		</a>\n'''
 	relText = 'Galeria1'
 	altText = 'Obrazek'
@@ -59,7 +59,7 @@ class HTMLCreator(HTMLParser.HTMLParser):
 					string.join(['_',str(index),'.'],""))
 				self.__processLevel(element.values()[0], childDir, childFile,
 					fileName)
-				fileText += self.dirText % (childFile, "", element.keys()[0])
+				fileText += self.dirText % (childFile, element.keys()[0])
 				index += 1
 			else:
 				fileText += self.imgText % (
