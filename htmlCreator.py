@@ -125,7 +125,8 @@ def main():
 		prefix = 'th_',
 		divName = 'galeria'
 		)
-	html.process(['Chrysanthemum.jpg','Desert.jpg'])
+	html.process(['Chrysanthemum.jpg','Desert.jpg',
+		{'folder2':['Koala.jpg','Penguins.jpg']} ])
 
 if __name__ == '__main__':
 	main()
